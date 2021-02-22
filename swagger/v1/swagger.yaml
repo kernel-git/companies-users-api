@@ -1,0 +1,365 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/companies":
+    get:
+      summary: Get companies
+      tags:
+      - Companies
+      security:
+      - access_token: []
+        client: []
+        uid: []
+      responses:
+        '200':
+          description: no companies
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/companies"
+    post:
+      summary: Creates a company
+      tags:
+      - Companies
+      security:
+      - access_token: []
+        client: []
+        uid: []
+      parameters: []
+      responses:
+        '201':
+          description: valid request
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/new_company"
+  "/companies/{id}":
+    get:
+      summary: Retrieves a company
+      tags:
+      - Companies
+      security:
+      - access_token: []
+        client: []
+        uid: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: company found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/company"
+            application/xml:
+              schema:
+                "$ref": "#/components/schemas/company"
+        '404':
+          description: company with invalid id
+    patch:
+      summary: Updates a company
+      tags:
+      - Companies
+      security:
+      - access_token: []
+        client: []
+        uid: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: valid request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/company"
+        '422':
+          description: invalid company id
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/unprocessable_entity"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/new_company"
+    delete:
+      summary: Deletes a company
+      tags:
+      - Companies
+      security:
+      - access_token: []
+        client: []
+        uid: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: company with valid id
+        '404':
+          description: company with invalid id
+  "/users":
+    get:
+      summary: Get users
+      tags:
+      - Users
+      security:
+      - access_token: []
+        client: []
+        uid: []
+      responses:
+        '200':
+          description: no users
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/users"
+    post:
+      summary: Creates a user
+      tags:
+      - Users
+      security:
+      - access_token: []
+        client: []
+        uid: []
+      parameters: []
+      responses:
+        '201':
+          description: valid request
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/new_user"
+  "/users/{id}":
+    get:
+      summary: Retrieves a user
+      tags:
+      - Users
+      security:
+      - access_token: []
+        client: []
+        uid: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/user"
+            application/xml:
+              schema:
+                "$ref": "#/components/schemas/user"
+        '404':
+          description: user with invalid id
+    patch:
+      summary: Updates a user
+      tags:
+      - Users
+      security:
+      - access_token: []
+        client: []
+        uid: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: valid request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/user"
+        '422':
+          description: invalid email
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/unprocessable_entity"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/new_user"
+    delete:
+      summary: Deletes a user
+      tags:
+      - Users
+      security:
+      - access_token: []
+        client: []
+        uid: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: user with valid id
+        '404':
+          description: user with invalid id
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
+components:
+  securitySchemes:
+    access_token:
+      type: apiKey
+      name: access_token
+      in: header
+    client:
+      type: apiKey
+      name: client
+      in: header
+    uid:
+      type: apiKey
+      name: uid
+      in: header
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+      required:
+      - id
+      - first_name
+      - last_name
+      - email
+    users:
+      type: array
+      items:
+        properties:
+          id:
+            type: integer
+          first_name:
+            type: string
+          last_name:
+            type: string
+          email:
+            type: string
+        required:
+        - id
+        - first_name
+        - last_name
+        - email
+    new_user:
+      type: object
+      properties:
+        user:
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string
+            email:
+              type: string
+            password:
+              type: string
+            password_confirmation:
+              type: string
+            company_user_connections_attributes:
+              type: array
+              items:
+                type: object
+                properties:
+                  role:
+                    type: string
+                  company_id:
+                    type: string
+      required:
+      - first_name
+      - last_name
+      - email
+      - password
+      - password_confirmation
+    company:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+      required:
+      - id
+      - name
+    companies:
+      type: array
+      items:
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          description:
+            type: string
+        required:
+        - id
+        - name
+    new_company:
+      type: object
+      properties:
+        company:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+      required: name
+    unprocessable_entity:
+      type: object
+      properties:
+        first_name:
+          type: array
+        last_name:
+          type: array
+        email:
+          type: array
+        password:
+          type: array
+        password_confirmation:
+          type: array
