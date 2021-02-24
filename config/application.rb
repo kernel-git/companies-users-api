@@ -40,5 +40,7 @@ module CompaniesRailsApi
     # Rails.logger = Logger.new(STDOUT)
     Rails.logger = ActiveSupport::Logger.new("log/#{Rails.env}.log")
     config.colorize_logging = false
+
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

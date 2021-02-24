@@ -7,4 +7,6 @@ Rails.application.routes.draw do
 
   resources :users
   resources :companies
+
+  match '*unmatched', to: 'application#route_not_recognized', via: :all
 end
