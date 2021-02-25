@@ -25,22 +25,14 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new(company_params)
     authorize @company
-    if @company.save
-      render json: @company.json, status: :created
-    else
-      render json: @company.errors, status: :unprocessable_entity
-    end
+    render json: @company.json, status: :created if @company.save!
   end
 
   # PATCH/PUT /companies/1
   def update
     @company = Company.find(params[:id])
     authorize @company
-    if @company.update(company_params)
-      render json: @company.json
-    else
-      render json: @company.errors, status: :unprocessable_entity
-    end
+    render json: @company.json if @company.update!(company_params)
   end
 
   # DELETE /companies/1
