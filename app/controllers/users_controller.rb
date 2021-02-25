@@ -2,37 +2,41 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: %i[show update destroy]
 
   # GET /users
   def index
     @users = User.all
-    render json: @users.to_json(only: %i[id first_name last_name email])
+    render json: @users
   end
 
   # GET /users/1
   def show
-    @user = User.find(params[:id])
-    render json: @user.json
+    render json: @user
   end
 
   # POST /users
   def create
     @user = User.new(user_params)
-    render json: @user.json, status: :created if @user.save!
+    render json: @user, status: :created if @user.save!
   end
 
   # PATCH/PUT /users/1
   def update
-    @user = User.find(params[:id])
-    render json: @user.json if @user.update!(user_params)
+    render json: @user if @user.update!(user_params)
   end
 
   # DELETE /users/1
   def destroy
-    User.find(params[:id]).destroy
+    @user.destroy
+    render status: :no_content if @user.destroyed?
   end
 
   private
+
+  def set_user
+    @user ||= User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(

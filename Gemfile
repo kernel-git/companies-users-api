@@ -28,37 +28,44 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # gem 'rack-cors'
 
 # To generate seeds data
-gem 'faker'
+gem 'faker', '~> 2.14.0' 
 
 # Use Devise authentication handling
-gem 'devise'
+gem 'devise', '~> 4.7.3'
 
 # Use Devise tokens instead of sessions or cookies
-gem 'devise_token_auth'
+gem 'devise_token_auth', '~> 1.1.5'
 
-gem 'pundit'
+# Pundit for authorization
+gem 'pundit', '~> 2.1.0'
 
-gem 'rubocop'
+gem 'active_model_serializers', '0.10.10'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'byebug', '~> 11.1.3', platforms: %i[mri mingw x64_mingw]
 
-  gem 'rspec-rails'
+  # For writing specs
+  gem 'rspec-rails', '~> 4.0.2'
 
-  gem 'pry-rails'
+  # Alternative to the standart IRB shell
+  gem 'pry-rails', '~> 0.3.9'
 
-  gem 'factory_bot_rails'
+  # Factories support for specs
+  gem 'factory_bot_rails', '~> 6.1.0'
 
-  # Use Swagger as a tool for develompent API
-  gem 'rswag'
+  # Use Swagger as a tool for API development
+  gem 'rswag', '~> 2.4.0'
 end
 
 group :development do
   gem 'listen', '~> 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem 'spring', '~> 2.1.1'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # To perform code style checks
+  gem 'rubocop', '~> 1.2.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

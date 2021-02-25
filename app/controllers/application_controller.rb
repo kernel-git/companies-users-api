@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  rescue_from AbstractController::ActionNotFound, with: :not_found
+  rescue_from AbstractController::ActionNotFound, with: :route_not_recognized
   rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity
   rescue_from ActionController::ParameterMissing, with: :parameter_missing
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
@@ -25,7 +25,7 @@ class ApplicationController < ActionController::API
   end
 
   def parameter_missing(exception)
-    render json: { status: :unprocessable_entity, error: exception.message }, status: :unprocessable_entity
+    render json: { status: :bad_request, error: exception.message }, status: :bad_request
   end
 
   def route_not_recognized

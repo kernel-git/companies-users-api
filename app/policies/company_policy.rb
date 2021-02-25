@@ -13,10 +13,10 @@ class CompanyPolicy
   end
 
   def update?
-    user.admin?(company)
+    user.admin_in?(company)
   end
 
   def destroy?
-    user.admin?(company)
+    user.admin_in?(company)
   end
 end

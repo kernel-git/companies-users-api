@@ -2,47 +2,44 @@
 
 class CompaniesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_company, only: %i[show update destroy]
 
   # GET /companies
   def index
     @companies = Company.all
-    render json: @companies.to_json(only: %i[id name description], include: {
-                                      company_user_connections: {
-                                        only: :role, include: {
-                                          user: { only: %i[id first_name last_name email] }
-                                        }
-                                      }
-                                    })
+    render json: @companies
   end
 
   # GET /companies/1
   def show
-    @company = Company.find(params[:id])
-    render json: @company.json
+    render json: @company
   end
 
   # POST /companies
   def create
     @company = Company.new(company_params)
     authorize @company
-    render json: @company.json, status: :created if @company.save!
+    render json: @company, status: :created if @company.save!
   end
 
   # PATCH/PUT /companies/1
   def update
-    @company = Company.find(params[:id])
     authorize @company
-    render json: @company.json if @company.update!(company_params)
+    render json: @company if @company.update!(company_params)
   end
 
   # DELETE /companies/1
   def destroy
-    @company = Company.find(params[:id])
     authorize @company
     @company.destroy
+    render status: :no_content if @company.destroyed?
   end
 
   private
+
+  def set_company
+    @company ||= Company.find(params[:id])
+  end
 
   def company_params
     params.require(:company).permit(
