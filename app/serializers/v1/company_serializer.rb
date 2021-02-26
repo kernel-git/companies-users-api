@@ -1,4 +1,6 @@
-class CompanySerializer < ActiveModel::Serializer
+# frozen_string_literal: true
+
+class V1::CompanySerializer < ActiveModel::Serializer
   attributes :id, :name, :description
 
   # Using serializer below

@@ -6,5 +6,5 @@ class CompanyUserConnection < ApplicationRecord
 
   validates_presence_of :user, :company, :role
 
-  scope :filter_by_role, -> (role) { where(self.arel_table[:role].matches("%#{role.downcase}%")) }
+  scope :filter_by_role, ->(role) { where(arel_table[:role].matches("%#{role.downcase}%")) }
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CompaniesController < ApplicationController
+class V1::CompaniesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_company, only: %i[show update destroy]
 

@@ -28,7 +28,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # gem 'rack-cors'
 
 # To generate seeds data
-gem 'faker', '~> 2.14.0' 
+gem 'faker', '~> 2.14.0'
 
 # Use Devise authentication handling
 gem 'devise', '~> 4.7.3'

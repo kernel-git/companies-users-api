@@ -5,8 +5,10 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
 
-  resources :users, except: %i[new edit]
-  resources :companies, except: %i[new edit]
+  namespace :v1 do
+    resources :users, except: %i[new edit]
+    resources :companies, except: %i[new edit]
+  end
 
   match '*unmatched', to: 'application#route_not_recognized', via: :all
 end

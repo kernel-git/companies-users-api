@@ -42,3 +42,8 @@ Style/RedundantFetchBlock:
 Naming/PredicateName:
   Exclude:
   - 'app/models/*.rb'
+
+Naming/MemoizedInstanceVariableName:
+    Exclude:
+    - 'app/controllers/*.rb'
+    - 'app/controllers/**/*.rb'
