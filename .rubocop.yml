@@ -1,0 +1,49 @@
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.7
+  Exclude:
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'config/initializers/*.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'spec/**/**/*.rb'
+    - 'db/schema.rb'
+    - 'config/routes.rb'
+
+Layout/ArgumentAlignment:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'spec/**/**/*.rb'
+
+Layout/MultilineMethodCallBraceLayout:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'spec/**/**/*.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'app/controllers/*.rb'
+    - 'app/controllers/**/*.rb'
+    - 'db/**/*'
+
+Style/RedundantFetchBlock:
+  Exclude:
+    - 'config/**/*.rb'
+
+Naming/PredicateName:
+  Exclude:
+  - 'app/models/*.rb'
+
+Naming/MemoizedInstanceVariableName:
+    Exclude:
+    - 'app/controllers/*.rb'
+    - 'app/controllers/**/*.rb'
